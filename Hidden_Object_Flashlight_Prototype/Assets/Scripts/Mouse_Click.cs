@@ -13,7 +13,20 @@ public class Mouse_Click : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            gameObject.SetActive(false);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.value);
+            mousePos.z = 0;
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+            if (hit)
+            {
+                print("hit!! " + hit.collider.gameObject.name);
+                if (hit.collider.gameObject == gameObject)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
+
         }
     }
 }
